@@ -1,0 +1,17 @@
+{
+    "presets": [
+        "flow",
+        [
+            "env", {
+                "targets": {
+                    "node": "10.5"
+                }
+            }
+        ]
+    ],
+    "env": {
+        "test": {
+            "plugins": [ "istanbul" ]
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "node-js-starter-pack",
+  "version": "0.0.1",
+  "repository": "https://github.com/scorsi/node-js-starter-pack.git",
+  "author": "scorsi <sylvain.corsini@gmail.com>",
+  "license": "MIT",
+  "main": "dist/IDA.js",
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
+  },
+  "scripts": {
+    "build:clean": "rimraf dist",
+    "test:clean": "rimraf coverage .nyc_output",
+    "clean": "yarn run build:clean && yarn run test:clean",
+    "build:lint": "eslint src/**/*.js",
+    "test:lint": "eslint test/**/*.test.js",
+    "lint": "yarn run build:lint && yarn run test:lint",
+    "prebuild": "yarn run build:clean && yarn run build:lint && flow",
+    "build": "babel src -d dist && copyfiles -u 1 src/IDA.ohm dist",
+    "pretest": "yarn run test:clean && yarn run lint && flow",
+    "test": "cross-env NODE_ENV=test nyc mocha test/**/*.test.js",
+    "report": "nyc report",
+    "prestart": "npm run build",
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "copyfiles": "^2.0.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.0.0-alpha",
+    "eslint-config-standard": "^12.0.0-alpha",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.77.0",
+    "husky": "^1.0.0-rc.13",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "rimraf": "^2.6.2",
+    "sinon": "^6.1.4"
+  },
+  "dependencies": {}
+}
